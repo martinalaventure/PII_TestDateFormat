@@ -15,6 +15,20 @@ public class DateFormatter
     /// <returns>La fecha convertida al formato "yyyy-mm-dd".</returns>
     public static string ChangeFormat(string date)
     {
-        return date.Substring(6) + "-" + date.Substring(3, 2) + "-" + date.Substring(0, 2);
+        if (string.IsNullOrEmpty(date) || date.Length < 10)
+        {
+            return  string.Empty;
+        }
+        string day = date.Substring(0, 2);
+        string month = date.Substring(3,2);
+        string year = date.Substring(6,4);
+
+        if (!int.TryParse(day, out int parsedDay) || !int.TryParse(month, out int parsedMonth) || !int.TryParse(year, out int parsedYear)) 
+// usamos int.Tryparse para verificar si se pudo convertir en un entero valido | formato de TryParse:TryParse(string s, out int result);
+        {
+            return "Error";
+        }
+        
+        return $"{year}-{month}-{day}";
     }
 }
